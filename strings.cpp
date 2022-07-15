@@ -196,6 +196,35 @@ char* findSmallestLexWord(char arrWords[CAPACITY][CAPACITY], int count)
 	return smallestWord;
 }
 
+// find the longest sequence of letters in string - exam 01.02.2019
+unsigned longestSequence(char* s)
+{
+	char ch;
+	char* iter = s;
+	unsigned count = 1;
+	unsigned maxCount = count;
+	while (*iter != '\0')
+	{
+		ch = *iter;
+		iter++;
+		while (*iter == ch)
+		{
+			count++;
+			iter++;
+		}
+
+		if (count > 1)
+		{
+			if (maxCount < count)
+				maxCount = count;
+			count = 1;
+		}
+
+	}
+
+	return maxCount;
+}
+
 int main()
 {
 	char text[CAPACITY] = "Me? Why always me?";
