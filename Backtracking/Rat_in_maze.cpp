@@ -1,3 +1,4 @@
+#include <iostream>
 int const N = 4;
 
 bool isSafe(int maze[N][N], int x, int y)
