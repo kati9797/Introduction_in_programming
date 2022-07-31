@@ -225,6 +225,7 @@ unsigned longestSequence(char* s)
 	return maxCount;
 }
 
+/*
 int main()
 {
 	char text[CAPACITY] = "Me? Why always me?";
@@ -238,3 +239,93 @@ int main()
 
 	std::cout << findSmallestLexWord(arrWords, count);
 }
+*/
+
+//(Хистограма на символите)
+//Масив от символи е съставен единствено и само от малки латински букви. 
+//Да се напише програма, която намира и извежда броя на срещанията на всяка от буквите от латинската азбука в символния низ.
+
+/*
+int main()
+{
+    char string[1024];
+    std::cin.getline(string, 1024);
+    int histogram[26] = { 0 };
+    int length = strlen(string);
+    for (int i = 0; i < length; i++)
+    {
+        histogram[string[i] - 'a']++;
+    }
+
+    for (int i = 0; i < 26; i++)
+    {
+        if (histogram[i] != 0)
+        {
+            std::cout << char(i + 'a') << ':' << histogram[i] << std::endl;
+        }
+    }
+}
+*/
+
+//Да се напише програма, която въвежда от клавиатурата символен низ Х с най - много 255 символа.
+//Нека низът s е съставен само от малките латински букви на низа Х в реда да срещането им в Х
+//,а низът S – само от главните латински букви на низа Х в реда на срещането им в Х.
+//Програмата да извежда „Yes“, ако низовете s и S се състоят от съответни една на друга букви, например „abc“ и „ABC“.
+//Пример за такъв низ Х е низът „abABcC“, но не и низът „aBACbc“.В противен случай програмата да изписва “No”.
+
+void inputStrings(char string[256], char s[256], int& firstInd, char S[256], int& secInd)
+{
+    int length = strlen(string);
+    for (int i = 0; i < length; i++)
+    {
+        if (string[i] >= 'a' && string[i] <= 'z')
+        {
+            s[firstInd++] = string[i];
+        }
+        else if (string[i] >= 'A' && string[i] <= 'Z')
+        {
+            S[secInd++] = string[i];
+        }
+    }
+
+    s[firstInd] = '\0';
+    S[secInd] = '\0';
+}
+
+bool simetricStrings(char s[256], char S[256])
+{
+    int ind = 0;
+    int diff = 'a' - 'A';
+
+    while (S[ind] != '\0')
+    {
+        if (s[ind] - diff != S[ind])
+        {
+            return false;
+        }
+
+        ind++;
+    }
+    return true;
+}
+
+/*
+int main()
+{
+    char string[256];
+    std::cin.getline(string, 256);
+
+    char s[256];
+    int firstInd = 0;
+    char S[256];
+    int secInd = 0;
+
+    inputStrings(string, s, firstInd, S, secInd);
+    std::cout << s << std::endl;
+    std::cout << S << std::endl;
+    if (simetricStrings(s,S))
+        std::cout << "Yes";
+    else
+        std::cout << "No";
+}
+*/
