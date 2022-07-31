@@ -191,3 +191,213 @@ int main()
     //overMainDiagonal(matrix, 4);
     return 0;
 }
+
+//Дадена е целочислена матрица с размерност nxm(n, m e[1; 10]).
+//Да се напише програма, която проверява дали съществува елемент,
+//който е равен на сумата от съседите си.
+//Всеки елемент има до 8 съседа.
+
+void inputMaze(int** maze, int n, int m)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            std::cin >> maze[i][j];
+        }
+    }
+}
+
+bool findElement(int** maze, int n, int m)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (i == 0 && j == 0)
+            {
+                if (maze[0][1] + maze[1][0] + maze[1][1] == maze[0][0])
+                    return true;
+            }
+            else if (i == n - 1 && j == 0)
+            {
+                if (maze[n - 1][1] + maze[n - 2][0] + maze[n - 2][1] == maze[n - 1][0])
+                    return true;
+            }
+            else if (i == 0 && j == m - 1)
+            {
+                if (maze[1][m - 1] + maze[0][m - 2] + maze[1][m - 2] == maze[0][m - 1])
+                    return true;
+            }
+            else if (i == n - 1 && j == m - 1)
+            {
+                if (maze[n - 1][m - 2] + maze[n - 2][m - 1] + maze[n - 2][m - 2] == maze[n - 1][m - 1])
+                    return true;
+            }
+            else if (i == 0 && j > 0 && j < m - 1)
+            {
+                if (maze[0][j + 1] + maze[0][j - 1] + maze[1][j] + maze[1][j - 1] + maze[1][j + 1] == maze[0][j])
+                    return true;
+            }
+            else if (i == n - 1 && j > 0 && j < m - 1)
+            {
+                if (maze[n - 1][j + 1] + maze[n - 1][j - 1] + maze[n - 2][j] + maze[n - 2][j - 1] + maze[n - 2][j + 1] == maze[n - 1][j])
+                    return true;
+            }
+            else if (j == 0 && i > 0 && i < n - 1)
+            {
+                if (maze[i + 1][0] + maze[i - 1][0] + maze[i][1] + maze[i - 1][1] + maze[i + 1][1] == maze[i][0])
+                    return true;
+            }
+            else if (j == n - 1 && i > 0 && i < m - 1)
+            {
+                if (maze[i + 1][m - 1] + maze[i - 1][m - 1] + maze[i][m - 2] + maze[i + 1][m - 2] + maze[i - 1][m - 2] == maze[i][m - 1])
+                    return true;
+            }
+            else
+            {
+                if (maze[i][j + 1] + maze[i][j - 1] + maze[i - 1][j] + maze[i + 1][j] + maze[i - 1][j - 1] + maze[i - 1][j + 1] + maze[i + 1][j - 1] + maze[i + 1][j + 1] == maze[i][j])
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+void freeMaze(int** maze, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        delete[] maze[i];
+    }
+
+    delete[] maze;
+}
+
+/*
+int main()
+{
+    int n, m;
+    std::cin >> n >> m;
+    int** maze = new int* [n];
+    for (int i = 0; i < n; i++)
+    {
+        maze[i] = new int[m];
+    }
+    inputMaze(maze, n, m);
+    std::cout << findElement(maze, n, m);
+    freeMaze(maze, n);
+}
+*/
+
+//Да се напише програма, която определя дали квадратна матрица A с размерност(1 <= n <= 20) е магически квадрат, 
+//т.е.такава, че сумата от елементите от всички редове, стълбове и двата диагонала е еднаква.
+
+void inputMaze(int** maze, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            std::cin >> maze[i][j];
+        }
+    }
+}
+
+bool isMagicalSquare(int** maze, int n)
+{
+    //rows
+    int sumFirstRow = 0;
+  
+    for (int j = 0; j < n; j++)
+    {
+        sumFirstRow += maze[0][j];
+    }
+
+    int currSumRow = 0;
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            currSumRow += maze[i][j];
+        }
+
+        if (currSumRow != sumFirstRow)
+            return false;
+        currSumRow = 0;
+    }
+
+    //cols
+    int sumFirstCol = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        sumFirstCol += maze[i][0];
+    }
+
+    if (sumFirstCol != sumFirstRow)
+        return false;
+
+    int currSumCol = 0;
+    for (int j = 1; j < n; j++)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            currSumCol += maze[i][j];
+        }
+
+        if (currSumCol != sumFirstCol)
+            return false;
+        currSumCol = 0;
+    }
+
+    //main diagonal
+    int sumMainD = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i == j)
+                sumMainD += maze[i][j];
+        }
+    }
+
+    if (sumMainD != sumFirstRow)
+        return false;
+
+    //second diagonal
+    int sumSecD = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = n - 1; j >= 0; j--)
+        {
+            if (j == n - i - 1)
+                sumSecD += maze[i][j];
+        }
+    }
+
+    if (sumSecD != sumMainD)
+        return false;
+    return true;
+
+}
+
+/*
+int main()
+{
+    int n;
+    std::cin >> n;
+    int** maze = new int* [n];
+    for (int i = 0; i < n; i++)
+    {
+        maze[i] = new int[n];
+    }
+    inputMaze(maze, n);
+
+    if (isMagicalSquare(maze,n))
+        std::cout << "It's a magical square!";
+    else
+        std::cout << "Not a magical square!";
+    freeMaze(maze, n);
+}
+*/
