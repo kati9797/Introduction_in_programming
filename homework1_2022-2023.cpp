@@ -1,5 +1,5 @@
-#include <iomanip>
 #include <iostream>
+#include <iomanip>
 #include <chrono>
 #include <thread>
 
@@ -35,12 +35,10 @@ void strengthOfNumbers(int first, int second)
     int n1 = first;
     int n2 = second;
 
-    // first -> second
     while (n1 != 0)
     {
         if (!containsDigit(second, n1 % 10))
         {
-            // first не се съд. в second
             while (n2 != 0)
             {
                 if (!containsDigit(first, n2 % 10))
@@ -248,22 +246,24 @@ void drawBus(int k)
 int main()
 {
     //Task 1
-    
-    //strengthOfNumbers(123, 3121);
-    //strengthOfNumbers(12, 1523);
-    //strengthOfNumbers(-43550, 430);
-    //strengthOfNumbers(123, 456);
-    //strengthOfNumbers(189, -99018);
-    //strengthOfNumbers(101010, 10);
-    
-    //Task 2
+    /*
+    strengthOfNumbers(123, 3121);
+    strengthOfNumbers(12, 1523);
+    strengthOfNumbers(-43550, 430);
+    strengthOfNumbers(123, 456);
+    strengthOfNumbers(189, -99018);
+    strengthOfNumbers(101010, 10);
+    */
 
-    //int arr[MAX_SIZE];
-    //int length;
-    //std::cout << "Enter length of array: ";
-    //std::cin >> length;
-    //readArr(arr, length);
-    //std::cout<<countProblems(arr,length);
+    //Task 2
+    /*
+    int arr[MAX_SIZE];
+    int length;
+    std::cout << "Enter length of array: ";
+    std::cin >> length;
+    readArr(arr, length);
+    std::cout<<countProblems(arr,length);
+    */
 
     //Task 3
     /*
@@ -286,7 +286,7 @@ int main()
     if (hasPath(arr1, arr2, arrSize1, arrSize2, path))
     {
         std::cout << "true" << std::endl;
-        std::cout << std::fixed << std::setprecision(2) << path << std::endl;
+        std::cout << std::fixed << std::setprecision(2) << path << std::endl; // std::fixed и std::setprecision - видяни от интернет - https://cplusplus.com/reference/iomanip/setprecision/
     }
     else
     {
@@ -294,15 +294,15 @@ int main()
     }
     */
 
-    
     // Task 5
     /*
     using namespace std::chrono_literals;
     for (int i = 0; i < 100; i++)
     {
         drawBus(i);
-        std::this_thread::sleep_for(200ms);
+        std::this_thread::sleep_for(200ms); // видяно от интернет - https://en.cppreference.com/w/cpp/thread/sleep_for
         system("CLS");
     }
     */
 }
+
